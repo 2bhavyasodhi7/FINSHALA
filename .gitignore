@@ -40,3 +40,7 @@ bun.lock
 bun.lockb
 yarn.lock
 pnpm-lock.yaml
+
+# Temp files
+push_error.txt
+git-log.txt

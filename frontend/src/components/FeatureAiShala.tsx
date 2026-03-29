@@ -10,7 +10,7 @@ const FeatureAiShala = () => {
   return (
     <section
       id="features-section"
-      className="relative py-24 md:py-32 px-6 md:px-12 overflow-hidden bg-background/20 backdrop-blur-3xl"
+      className="relative py-24 md:py-32 px-6 md:px-12 overflow-hidden bg-background/50 backdrop-blur-3xl"
     >
       {/* Interactive cursor-reactive dot field — dark dots on parchment */}
       <CursorDotField

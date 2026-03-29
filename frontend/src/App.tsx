@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import Disclaimer from "@/components/Disclaimer";
+import PulsingCircle from "@/components/ui/PulsingCircle";
 import Index from "./pages/Index.tsx";
 
 import Account from "./pages/Account.tsx";
@@ -24,7 +25,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen relative">
             <div className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />
@@ -40,6 +41,9 @@ const App = () => (
               </Routes>
             </div>
             <Disclaimer />
+            
+            {/* Global Component */}
+            <PulsingCircle />
           </div>
         </BrowserRouter>
       </TooltipProvider>

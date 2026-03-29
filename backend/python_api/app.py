@@ -10,6 +10,7 @@ import io
 import json
 import sys
 import tempfile
+import requests as py_requests
 
 # Fix Windows cp1252 encoding for emoji output
 if sys.platform == 'win32':
@@ -503,6 +504,100 @@ def generate_report(report_type):
         return jsonify({"error": str(e)}), 500
 
 # ═══════════════════════════════════════════════
+# CHATBOT ENDPOINT — Ollama llama3.1:8b
+# ═══════════════════════════════════════════════
+
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
+CHAT_MODEL = os.environ.get("CHAT_MODEL", "llama3.1:8b")
+
+FINSHALA_SYSTEM_PROMPT = """You are Finshala AI — a warm, knowledgeable Indian financial advisor assistant.
+You help users with:
+- Tax planning (Old vs New regime, 80C, 80D, HRA, Section 24b)
+- FIRE planning (Financial Independence, Retire Early)
+- Money Health Score analysis
+- Investment advice (SIP, mutual funds, ELSS, NPS, PPF)
+- Insurance guidance (term, health)
+- General personal finance questions
+
+Rules:
+- Be concise but helpful. Use bullet points when listing.
+- Use Indian Rupee (₹) for amounts.
+- Reference Indian tax laws and financial products.
+- Be friendly and conversational. Use simple language.
+- If unsure, say so honestly.
+- Keep responses under 200 words unless the user asks for detail."""
+
+
+@app.route('/api/chat', methods=['POST'])
+def chatbot():
+    """Chat endpoint using Ollama llama3.1:8b for fast local inference."""
+    try:
+        body = request.get_json(force=True)
+        user_message = body.get("message", "").strip()
+        history = body.get("history", [])
+
+        if not user_message:
+            return jsonify({"error": "No message provided"}), 400
+
+        # Build messages array
+        messages = [{"role": "system", "content": FINSHALA_SYSTEM_PROMPT}]
+
+        # Add conversation history (last 10 messages to keep context manageable)
+        for msg in history[-10:]:
+            role = "assistant" if msg.get("role") == "bot" else "user"
+            messages.append({"role": role, "content": msg.get("content", "")})
+
+        messages.append({"role": "user", "content": user_message})
+
+        # Call Ollama
+        try:
+            resp = py_requests.post(
+                f"{OLLAMA_URL}/api/chat",
+                json={
+                    "model": CHAT_MODEL,
+                    "messages": messages,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.7,
+                        "num_predict": 512,
+                    }
+                },
+                timeout=60
+            )
+
+            if resp.status_code == 200:
+                data = resp.json()
+                reply = data.get("message", {}).get("content", "").strip()
+                if reply:
+                    return jsonify({"reply": reply, "model": CHAT_MODEL})
+
+            # If Ollama fails, try with the model name without tag
+            print(f"[Chatbot] Ollama returned {resp.status_code}, trying fallback...")
+        except Exception as e:
+            print(f"[Chatbot] Ollama connection failed: {e}")
+
+        # Fallback: use HF LLM client if available
+        try:
+            from ai_shala.llm_client import get_llm_client
+            client = get_llm_client()
+            result = client.chat(messages, max_tokens=512, temperature=0.7)
+            return jsonify({"reply": result["text"], "model": result["model_used"]})
+        except Exception as e2:
+            print(f"[Chatbot] HF fallback also failed: {e2}")
+
+        # Final fallback
+        return jsonify({
+            "reply": "I'm having trouble connecting to my AI engine right now. Please make sure Ollama is running with llama3.1:8b model. You can start it with: `ollama run llama3.1:8b`",
+            "model": "fallback"
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+# ═══════════════════════════════════════════════
 # RUN
 # ═══════════════════════════════════════════════
 
@@ -514,6 +609,7 @@ if __name__ == '__main__':
     print("   POST /api/calculate-health-score  - Money Health Score calculation")
     print("   POST /api/calculate-fire-plan     - FIRE planning engine")
     print("   POST /api/generate-report/<type>  - PDF Report Generation")
+    print("   POST /api/chat                    - Chatbot (Ollama llama3.1:8b)")
     print("   --- AI Shala (Agentic AI) ---")
     print("   GET  /api/v2/ai-shala/health      - AI Shala health check")
     print("   POST /api/v2/ai-shala/analyze     - Full AI pipeline")

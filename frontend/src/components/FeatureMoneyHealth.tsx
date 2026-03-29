@@ -260,7 +260,7 @@ const FeatureMoneyHealth = () => {
     <section
       ref={sectionRef}
       className="relative py-24 md:py-32 px-6 md:px-12 overflow-hidden"
-      style={{ backgroundColor: "hsl(var(--primary) / 0.3)", backdropFilter: "blur(24px)" }}
+      style={{ backgroundColor: "hsl(var(--primary) / 0.8)", backdropFilter: "blur(24px)" }}
     >
       {/* Pattern background */}
       <BGPattern variant="grid" mask="fade-edges" size={32} fill="rgba(255,255,255,0.06)" className="z-0" />

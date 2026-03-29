@@ -14,11 +14,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"SF Pro Display"', '-apple-system', 'sans-serif'],
-        editorial: ['"SF Pro Display"', '-apple-system', 'sans-serif'],
-        body: ['"SF Pro Display"', '-apple-system', 'sans-serif'],
-        serif: ['"SF Pro Display"', '-apple-system', 'sans-serif'],
-        sans: ['"SF Pro Display"', '-apple-system', 'sans-serif'],
+        display: ['"PP Editorial New"', 'Georgia', 'sans-serif'],
+        editorial: ['"PP Editorial New"', 'Georgia', 'sans-serif'],
+        body: ['"PP Editorial New"', 'Georgia', 'sans-serif'],
+        serif: ['"PP Editorial New"', 'Georgia', 'sans-serif'],
+        sans: ['"PP Editorial New"', 'Georgia', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

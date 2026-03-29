@@ -140,7 +140,7 @@ const FeatureTaxWizard = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="py-24 md:py-32 px-6 md:px-12 bg-background/20 backdrop-blur-3xl">
+    <section className="py-24 md:py-32 px-6 md:px-12 bg-background/50 backdrop-blur-3xl">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div

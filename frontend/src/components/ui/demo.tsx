@@ -1,5 +1,5 @@
-import ButtonWithIcon from "@/components/ui/button-with-icon";
+import EarbudShowcase from "@/components/ui/spatial-product-showcase";
 
 export default function DemoOne() {
-  return <ButtonWithIcon />;
+  return <EarbudShowcase />;
 }

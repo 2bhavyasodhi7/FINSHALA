@@ -170,7 +170,7 @@ const HeroPanels = () => {
                     {panel.centerLetter}
                   </span>
                 ) : (
-                  <span className="font-display text-2xl md:text-3xl font-medium tracking-wider text-center px-4" style={{ color: "hsl(0 0% 8% / 0.75)" }}>
+                  <span className="font-display text-2xl md:text-3xl font-medium tracking-wider text-center whitespace-nowrap -rotate-90 transition-transform duration-500" style={{ color: "hsl(0 0% 8% / 0.75)" }}>
                     {panel.title}
                   </span>
                 )}
@@ -215,7 +215,26 @@ const HeroPanels = () => {
           className="font-display text-3xl md:text-5xl lg:text-6xl font-normal transition-opacity duration-300"
           style={{ color: "hsl(var(--ink))" }}
         >
-          {activeTitle}
+          {activeTitle === "Finshala" ? (
+            <span className="inline-flex items-baseline">
+              F
+              <span className="relative inline-flex flex-col items-center">
+                <motion.span
+                  onClick={toggleShuffle}
+                  className="absolute -top-[0.14em] cursor-pointer hover:scale-110 transition-transform flex items-center justify-center border border-foreground/40 rounded-full w-[0.34em] h-[0.34em]"
+                  whileTap={{ scale: 0.9 }}
+                  animate={{ borderColor: ["rgba(0,0,0,0.1)", "rgba(0,0,0,0.5)", "rgba(0,0,0,0.1)"] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <svg width="0.16em" height="0.16em" viewBox="0 0 24 24" fill="currentColor" className="ml-[0.02em]">
+                    <polygon points="7 5 19 12 7 19 7 5" />
+                  </svg>
+                </motion.span>
+                <span className="mt-[0.05em]">ı</span>
+              </span>
+              nshala
+            </span>
+          ) : activeTitle}
         </h1>
         <p className="font-editorial text-lg md:text-xl font-light text-muted-foreground transition-opacity duration-300">
           {activeSubtitle}
@@ -227,35 +246,18 @@ const HeroPanels = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 2 }}
-        className="absolute bottom-8 left-0 right-0 flex items-center justify-between px-8 md:px-12"
+        className="absolute bottom-8 left-0 right-0 flex items-center px-8 md:px-12"
       >
-        <span
-          onClick={() => {
-            const section = document.getElementById("features-section");
-            if (section) section.scrollIntoView({ behavior: "smooth" });
-          }}
-          className="font-body text-xs tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-500 cursor-pointer"
-        >
-          See all tools
-        </span>
         <div className="flex items-center gap-6">
-          <button
-            onClick={toggleShuffle}
-            className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 ${isShuffling ? "border-foreground text-foreground bg-foreground/10 animate-pulse" : "border-border text-muted-foreground hover:text-foreground"}`}
+          <span
+            onClick={() => {
+              const section = document.getElementById("features-section");
+              if (section) section.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="font-body text-[10px] tracking-widest uppercase border border-foreground/30 px-4 py-2 hover:bg-foreground hover:text-background transition-all duration-500 cursor-pointer"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              {isShuffling ? <rect x="6" y="4" width="4" height="16" rx="1" /> : <polygon points="5 3 19 12 5 21 5 3" />}
-              {isShuffling && <rect x="14" y="4" width="4" height="16" rx="1" />}
-            </svg>
-          </button>
-          <button className="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-500">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
-            </svg>
-          </button>
+            See all tools
+          </span>
         </div>
       </motion.div>
     </section>

@@ -84,7 +84,7 @@ const FeatureFirePath = () => {
     <section
       id="features-section"
       ref={sectionRef}
-      className="pt-32 md:pt-40 pb-24 md:pb-32 px-6 md:px-12 bg-background/20 backdrop-blur-3xl relative overflow-visible"
+      className="pt-32 md:pt-40 pb-24 md:pb-32 px-6 md:px-12 bg-background/50 backdrop-blur-3xl relative overflow-visible"
     >
       {/* Background decorative element */}
       <motion.div

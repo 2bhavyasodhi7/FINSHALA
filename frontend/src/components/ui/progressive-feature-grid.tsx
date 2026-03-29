@@ -78,7 +78,7 @@ const ProgressiveFeatureGrid = () => {
   };
 
   return (
-    <section ref={containerRef} className="py-24 max-w-screen-2xl mx-auto px-6 md:px-12">
+    <section ref={containerRef} className="pt-20 pb-4 max-w-screen-2xl mx-auto px-6 md:px-12">
       <article className="w-fit mx-auto 2xl:max-w-5xl xl:max-w-4xl max-w-2xl text-center space-y-6">
         <motion.div
           custom={1}
@@ -125,42 +125,6 @@ const ProgressiveFeatureGrid = () => {
           dynamically build your UI dashboards without Hallucinations.
         </motion.p>
       </article>
-
-      <div className="grid md:grid-cols-3 grid-cols-2 gap-6 pt-20">
-        {aiShalaFeatures.map((component, index) => (
-          <motion.a
-            custom={index + 4}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={revealVariants}
-            key={index}
-            href={component?.url}
-            className="group relative transition-all aspect-video rounded-xl backdrop-blur-sm overflow-hidden border border-black/5 hover:border-black/20 hover:shadow-lg hover:-translate-y-1 block"
-          >
-            <figure className="relative h-full w-full">
-              {component.imgSrc && (
-                <img
-                  src={component.imgSrc}
-                  alt={component.name}
-                  className={cn("w-full h-full object-cover transition-transform duration-700 group-hover:scale-105", component.imgclass)}
-                />
-              )}
-            </figure>
-            
-            <ProgressiveBlur
-              className="pointer-events-none absolute bottom-0 left-0 h-[40%] w-full"
-              blurIntensity={1.2}
-              blurLayers={6}
-            />
-            
-            <div className="sm:pb-4 pb-2 sm:px-5 px-3 absolute bottom-0 left-0 w-full z-10 transition-transform duration-500">
-              <h3 className="font-display text-lg md:text-xl font-medium leading-[140%] text-white drop-shadow-md">
-                {component.name}
-              </h3>
-            </div>
-          </motion.a>
-        ))}
-      </div>
     </section>
   );
 };

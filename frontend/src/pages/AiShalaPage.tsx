@@ -88,6 +88,9 @@ const AiShalaPage = () => {
     <div className="min-h-screen bg-background paper-grain">
       <Navbar />
 
+      {/* Intro Text (shown before analysis) */}
+      {!result && !isAnalyzing && <ProgressiveFeatureGrid />}
+
       {/* Hero Section — Raining Matrix Background with Liquid Glass blur */}
       <RainingLetters>
         <section className="relative pt-24 pb-16 px-6 md:px-12 overflow-hidden backdrop-blur-[32px] bg-white/5 border-b border-white/10 shadow-2xl">
@@ -246,8 +249,6 @@ const AiShalaPage = () => {
         </section>
       )}
 
-      {/* Feature Cards Image Grid Layout (shown before analysis) */}
-      {!result && !isAnalyzing && <ProgressiveFeatureGrid />}
     </div>
   );
 };

@@ -43,7 +43,7 @@ export function HeroSection({
   buttonClassName = "",
   maxWidth = "max-w-6xl",
   veilOpacity = "bg-white/20 dark:bg-black/25",
-  fontFamily = "Satoshi, sans-serif",
+  fontFamily = '"PP Editorial New", Georgia, sans-serif',
   fontWeight = 500,
   children,
 }: HeroSectionProps) {

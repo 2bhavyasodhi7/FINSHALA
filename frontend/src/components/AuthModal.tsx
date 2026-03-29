@@ -107,7 +107,7 @@ const AuthModal = ({ open, onOpenChange, mode, setMode }: AuthModalProps) => {
                 <>
                   <div>
                     <label className={labelClass}>Full name</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Jane Doe" required />
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={inputClass} placeholder="Vinayaka" required />
                   </div>
 
                   <div>
