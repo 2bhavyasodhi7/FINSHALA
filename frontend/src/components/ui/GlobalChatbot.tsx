@@ -29,7 +29,7 @@ const SUGGESTED_QUESTIONS = [
   "How to calculate my HRA exemption?",
 ];
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://6296-103-216-89-181.ngrok-free.app";
 
 // =========================================
 // 2. MARKDOWN-LIKE RENDERER
